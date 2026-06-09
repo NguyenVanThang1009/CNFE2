@@ -36,5 +36,4 @@ const HackerRoom = (props) => {
 useGLTF.preload(`${import.meta.env.BASE_URL}models/hacker-room.glb`);
 useTexture.preload(`${import.meta.env.BASE_URL}textures/desk/monitor.png`);
 useTexture.preload(`${import.meta.env.BASE_URL}textures/desk/screen.png`);
-
 export default HackerRoom;

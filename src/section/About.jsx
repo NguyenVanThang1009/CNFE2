@@ -24,7 +24,7 @@ const About = () => {
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
-              src="/assets/grid1.png"
+              src={`${import.meta.env.BASE_URL}assets/grid1.png`}
               alt="grid-1"
               className="w-full sm:h-[276px] h-fit object-contain"
             />
@@ -41,7 +41,7 @@ const About = () => {
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
-              src="/assets/grid2.png"
+              src={`${import.meta.env.BASE_URL}assets/grid2.png`}
               alt="grid-2"
               className="w-full sm:h-[276px] h-fit object-contain"
             />
@@ -54,7 +54,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Ô 3: Quả địa cầu 3D */}
+        {/* Ô 3: Vị trí địa lý (Quả địa cầu) */}
         <div className="col-span-1 xl:row-span-4">
           <div className="grid-container">
             <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
@@ -69,8 +69,8 @@ const About = () => {
                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                 labelsData={[
                   {
-                    lat: 10.8231, // Tọa độ vĩ độ của Ho Chi Minh City
-                    lng: 106.6297, // Tọa độ kinh độ của Ho Chi Minh City
+                    lat: 10.8231, 
+                    lng: 106.6297, 
                     text: "Mình ở đây, TP.HCM!",
                     color: "white",
                     size: 20,
@@ -93,33 +93,36 @@ const About = () => {
         {/* Ô 4: Đam mê cá nhân */}
         <div className="xl:col-span-2 xl:row-span-3">
           <div className="grid-container">
+          
             <img
-              src="/assets/grid3.png"
+              src={`${import.meta.env.BASE_URL}assets/grid3.png`}
               alt="grid-3"
               className="w-full sm:h-[266px] h-fit object-contain"
             />
             <div>
               <p className="grid-headtext">Đam Mê Lập Trình</p>
               <p className="grid-subtext">
-                Mình yêu thích việc giải quyết các bài toán logic và xây dựng những sản phẩm thực tế thông qua code. Bên cạnh phát triển web, mình cũng hứng thú với kiến trúc hệ thống, tối ưu hóa hiệu năng phần mềm và chơi các tựa game chiến thuật như Đấu Trường Chân Lý hay Liên Minh Huyền Thoại. Đối với mình, lập trình không chỉ là một chuyên ngành học — đó là hành trình không ngừng học hỏi và phát triển cá nhân.
+                Mình yêu thích việc giải quyết các bài toán logic và xây dựng những sản phẩm thực tế thông qua code. Bên cạnh phát triển web, mình cũng hứngthu với kiến trúc hệ thống, tối ưu hóa hiệu năng phần mềm và chơi các tựa game chiến thuật như Đấu Trường Chân Lý hay Liên Minh Huyền Thoại. Đối với mình, lập trình không chỉ là một chuyên ngành học — đó là hành trình không ngừng học hỏi và phát triển cá nhân.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Ô 5: Sao chép Email */}
+      
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
+          
             <img
-              src="/assets/grid4.png"
+              src={`${import.meta.env.BASE_URL}assets/grid4.png`}
               alt="grid-4"
               className="w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top"
             />
             <div className="space-y-2">
               <p className="grid-subtext text-center">Liên hệ qua Email</p>
               <div className="copy-container" onClick={handleCopy}>
+                
                 <img
-                  src={hasCopied ? "assets/tick.svg" : "assets/copy.svg"}
+                  src={hasCopied ? `${import.meta.env.BASE_URL}assets/tick.svg` : `${import.meta.env.BASE_URL}assets/copy.svg`}
                   alt="copy-icon"
                 />
                 <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">

@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-// Đã import thêm Environment, Sparkles, Stars để làm đẹp
 import { PerspectiveCamera, Environment, Sparkles, Stars } from "@react-three/drei"; 
 import Rings from "../components/Rings";
 import HackerRoom from "../components/HackerRoom";
@@ -39,7 +38,6 @@ const Hero = () => {
             <HeroCamera isMobile={isMobile}>
               <HackerRoom
                 position={sizes.deskPosition}
-            
                 rotation={[0, -Math.PI, 0]} 
                 scale={sizes.deskScale}
               />
@@ -51,7 +49,6 @@ const Hero = () => {
               <Rings position={sizes.ringPosition} />
             </group>
 
-        
             <Environment preset="city" />
 
             <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
@@ -65,7 +62,17 @@ const Hero = () => {
         </Canvas>
       </div>
 
-      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space flex justify-center">
+    
+      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space flex flex-col items-center gap-3">
+        <a href="#about" className="w-fit mb-2">
+          <div className="arrow-btn flex justify-center items-center bg-black-200 rounded-full p-3 border border-black-300">
+            <img 
+              src={`${import.meta.env.BASE_URL}assets/arrow-up.png`} 
+              alt="arrow-down" 
+              className="w-5 h-5 object-contain" 
+            />
+          </div>
+        </a>
         <a href="#contact" className="w-fit">
           <Button name="Let's work together" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
         </a>
