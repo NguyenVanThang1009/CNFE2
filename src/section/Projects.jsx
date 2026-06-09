@@ -1,105 +1,64 @@
-import React, { useState } from 'react';
-import { myProjects } from '../constants';
-import { Canvas } from '@react-three/fiber';
-import { Center, OrbitControls } from '@react-three/drei';
-import { Suspense } from 'react';
-import CanvasLoader from '../components/CanvasLoader';
-import DemoComputer from '../components/DemoComputer';
+import React, { useState } from "react";
+import { myProjects } from "../constants";
 
 const Projects = () => {
-  // Tạo state để theo dõi xem mình đang ở dự án số mấy (Mặc định là 0)
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentProject = myProjects[currentIndex];
 
-  // Lấy ra toàn bộ thông tin của dự án đang được chọn
-  const currentProject = myProjects[selectedProjectIndex];
-
-  // Hàm xử lý khi bấm nút mũi tên trái/phải
   const handleNavigation = (direction) => {
-    setSelectedProjectIndex((prevIndex) => {
+    setCurrentIndex((prevIndex) => {
       if (direction === 'previous') {
-        // Nếu đang ở dự án đầu tiên mà bấm lùi, thì vòng lại dự án cuối cùng
         return prevIndex === 0 ? myProjects.length - 1 : prevIndex - 1;
       } else {
-        // Nếu đang ở dự án cuối cùng mà bấm tới, thì vòng lại dự án đầu tiên
         return prevIndex === myProjects.length - 1 ? 0 : prevIndex + 1;
       }
     });
   };
 
   return (
-    <section className="c-space my-20" id="work">
-      <p className="head-text">My Work</p>
-
-      <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
-        
-        {/* ================= CỘT TRÁI (Thông tin) ================= */}
-        <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
-          
-          {/* Ảnh nền mờ phía sau (Spotlight) */}
+    <section className="c-space my-20" id="projects">
+      <p className="head-text">Sản Phẩm Của Mình</p>
+      
+      <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-24 w-full">
+        {/* Phần thông tin dự án bên trái */}
+        <div className="flex flex-col gap-5 relative sm:p-10 p-6 shadow-2xl shadow-black-200">
           <div className="absolute top-0 right-0">
-            <img src={currentProject.spotlight} alt="spotlight" className="w-full h-96 object-cover rounded-xl" />
+            <img src={`${import.meta.env.BASE_URL}${currentProject.logo}`} alt="project logo" className="w-10 h-10 object-contain rounded-md" />
           </div>
 
-          {/* Logo dự án */}
-          <div className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg" style={currentProject.logoStyle}>
-            <img className="w-10 h-10 shadow-sm" src={currentProject.logo} alt="logo" />
-          </div>
-
-          {/* Tiêu đề & Mô tả */}
           <div className="flex flex-col gap-5 text-white-600 my-5">
-            <p className="text-white text-2xl font-semibold animatedText">{currentProject.title}</p>
+            <p className="text-white text-2xl font-semibold font-generalsans">{currentProject.title}</p>
             <p className="animatedText">{currentProject.desc}</p>
             <p className="animatedText">{currentProject.subdesc}</p>
           </div>
 
-          {/* Logo Công nghệ (Tech Stack) & Link xem Demo */}
           <div className="flex items-center justify-between flex-wrap gap-5">
             <div className="flex items-center gap-3">
               {currentProject.tags.map((tag, index) => (
-                <div key={index} className="tech-logo">
-                  <img src={tag.path} alt={tag.name} />
+                <div key={index} className="tech-logo flex justify-center items-center bg-black-300 rounded-md p-2">
+                  <img src={`${import.meta.env.BASE_URL}${tag.path}`} alt={tag.name} className="w-6 h-6 object-contain" />
                 </div>
               ))}
             </div>
-
-            <a className="flex items-center gap-2 cursor-pointer text-white-600" href={currentProject.href} target="_blank" rel="noreferrer">
-              <p>Check Live Site</p>
-              <img src="/assets/arrow-up.png" alt="arrow" className="w-3 h-3" />
-            </a>
           </div>
 
-          {/* Hai nút mũi tên điều hướng */}
+          {/* Điều hướng nút bấm mũi tên */}
           <div className="flex justify-between items-center mt-7">
-            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-              <img src="/assets/left-arrow.png" alt="left arrow" className="w-4 h-4" />
+            <button className="arrow-btn bg-black-200 p-3 rounded-full border border-black-300" onClick={() => handleNavigation('previous')}>
+              <img src={`${import.meta.env.BASE_URL}assets/left-arrow.png`} alt="left arrow" className="w-4 h-4 object-contain" />
             </button>
 
-            <button className="arrow-btn" onClick={() => handleNavigation('next')}>
-              <img src="/assets/right-arrow.png" alt="right arrow" className="w-4 h-4" />
+            <button className="arrow-btn bg-black-200 p-3 rounded-full border border-black-300" onClick={() => handleNavigation('next')}>
+              <img src={`${import.meta.env.BASE_URL}assets/right-arrow.png`} alt="right arrow" className="w-4 h-4 object-contain" />
             </button>
           </div>
         </div>
 
-        {/* ================= CỘT PHẢI (Mô hình 3D - Sẽ code sau) ================= */}
-      <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-          <Canvas>
-            <ambientLight intensity={Math.PI} />
-            <directionalLight position={[10, 10, 5]} />
-            
-            <Center>
-              <Suspense fallback={<CanvasLoader />}>
-                <group scale={2} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
-                  {/* Truyền đường dẫn video của dự án hiện tại vào máy tính */}
-                  <DemoComputer scale={5} texture={currentProject.texture}  />
-                </group>
-              </Suspense>
-            </Center>
-            
-            {/* Cho phép dùng chuột để xoay máy tính 360 độ */}
-            <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false} />
-          </Canvas>
+        {/* Phần hiển thị mô hình 3D bên phải */}
+        <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full flex justify-center items-center text-white">
+          {/* Canvas hiển thị mô hình 3D của bạn ở đây */}
+          <p className="text-gray-400 font-generalsans">Mô hình 3D Dự Án</p>
         </div>
-
       </div>
     </section>
   );

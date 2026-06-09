@@ -6,7 +6,6 @@ import HackerRoom from "../components/HackerRoom";
 import CanvasLoader from "../components/CanvasLoader";
 import { useMediaQuery } from "react-responsive";
 import { calculateSizes } from "../constants";
-import Target from "../components/Target";
 import ReactLogo from "../components/ReactLogo";
 import Cube from "../components/Cube";
 import HeroCamera from "../components/HeroCamera";
@@ -20,7 +19,7 @@ const Hero = () => {
   const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
   return (
-    <section className="min-h-screen w-full flex flex-col relative">
+    <section className="min-h-screen w-full flex flex-col relative" id="home">
       <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 c-space gap-3 relative z-10 pointer-events-none">
         <p className="sm:text-3xl text-2xl font-medium text-white text-center font-generalsans">
           Hi, I am Thang <span className="waving-hand">👋</span>
@@ -50,22 +49,17 @@ const Hero = () => {
             </group>
 
             <Environment preset="city" />
-
             <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
-
             <Sparkles count={80} scale={15} size={3} speed={0.4} opacity={0.6} color="#61dafb" />
-
             <spotLight position={[0, 10, 5]} angle={0.5} penumbra={1} intensity={1.5} color="#4e00ff" />
             <ambientLight intensity={0.3} />
-
           </Suspense>
         </Canvas>
       </div>
 
-    
       <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space flex flex-col items-center gap-3">
         <a href="#about" className="w-fit mb-2">
-          <div className="arrow-btn flex justify-center items-center bg-black-200 rounded-full p-3 border border-black-300">
+          <div className="arrow-btn flex justify-center items-center bg-black-200 rounded-full p-3 border border-black-300 evaluation-glow">
             <img 
               src={`${import.meta.env.BASE_URL}assets/arrow-up.png`} 
               alt="arrow-down" 
