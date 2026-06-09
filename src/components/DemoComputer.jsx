@@ -16,6 +16,7 @@ const DemoComputer = (props) => {
     playsInline: true
   });
 
+  // Ép chiều video hiển thị đúng, không bị ngược đầu
   useEffect(() => {
     if (txt) {
       txt.flipY = false;
@@ -32,13 +33,22 @@ const DemoComputer = (props) => {
 
   return (
     <group ref={group} {...props} dispose={null}>
-      <group rotation={[0, 0, 0]} scale={1}>
-        <mesh 
-          geometry={nodes.Object_4.geometry} 
-          material={materials.PaletteMaterial001}
-        >
-          <meshBasicMaterial map={txt} toneMapped={false} />
-        </mesh>
+      {/* 🟢 ĐÃ TRẢ LẠI: Trục xoay và scale nguyên bản của mô hình */}
+      <group rotation={[-Math.PI / 2, 0, 0]}>
+        <group position={[-0.005, 0.044, 0.15]} rotation={[0, 0, -Math.PI]} scale={[0.288, 0.412, 0.295]}>
+          
+          {/* MẢNH 1: Lớp vỏ máy tính - Trả lại đúng tên node gốc của fen */}
+          <mesh 
+            geometry={nodes['Material19-material-material'].geometry} 
+            material={materials['Material19-material']} 
+          />
+          
+          {/* MẢNH 2: Màn hình hiển thị Video */}
+          <mesh geometry={nodes['Material20-material-material'].geometry}>
+             <meshBasicMaterial map={txt} toneMapped={false} />
+          </mesh>
+
+        </group>
       </group>
     </group>
   );

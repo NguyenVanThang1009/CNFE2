@@ -14,31 +14,26 @@ const Rings = ({ position }) => {
   const baseUrl = import.meta.env.BASE_URL;
   const texture = useTexture(`${baseUrl}textures/rings.png`);
 
-  useGSAP(
-    () => {
-      if (refList.current.length === 0) return;
+  useGSAP(() => {
+    if (refList.current.length === 0) return;
 
-      gsap
-        .timeline({
-          repeat: -1,
-          repeatDelay: 0.5,
-        })
-        .to(
-          refList.current.map((r) => r.rotation),
-          {
-            y: `+=${Math.PI * 2}`,
-            x: `-=${Math.PI * 2}`,
-            duration: 2.5,
-            stagger: {
-              each: 0.15,
-            },
+    gsap
+      .timeline({
+        repeat: -1,
+        repeatDelay: 0.5,
+      })
+      .to(
+        refList.current.map((r) => r.rotation),
+        {
+          y: `+=${Math.PI * 2}`,
+          x: `-=${Math.PI * 2}`,
+          duration: 2.5,
+          stagger: {
+            each: 0.15,
           },
-        );
-    },
-    {
-      dependencies: [position],
-    },
-  );
+        },
+      );
+  }); // 🟢 ĐÃ FIX: Gỡ bỏ array dependencies để Hook chạy tự do và bắt đúng refList 
 
   return (
     <group position={position}>

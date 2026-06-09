@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { myProjects } from "../constants";
+import { Canvas } from "@react-three/fiber";
+import { Center, OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import CanvasLoader from "../components/CanvasLoader";
+import DemoComputer from "../components/DemoComputer";
 
 const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,7 +47,6 @@ const Projects = () => {
             </div>
           </div>
 
-          {/* Điều hướng nút bấm mũi tên */}
           <div className="flex justify-between items-center mt-7">
             <button className="arrow-btn bg-black-200 p-3 rounded-full border border-black-300" onClick={() => handleNavigation('previous')}>
               <img src={`${import.meta.env.BASE_URL}assets/left-arrow.png`} alt="left arrow" className="w-4 h-4 object-contain" />
@@ -56,8 +60,19 @@ const Projects = () => {
 
         {/* Phần hiển thị mô hình 3D bên phải */}
         <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full flex justify-center items-center text-white">
-          {/* Canvas hiển thị mô hình 3D của bạn ở đây */}
-          <p className="text-gray-400 font-generalsans">Mô hình 3D Dự Án</p>
+        
+          <Canvas>
+            <ambientLight intensity={Math.PI / 2} />
+            <directionalLight position={[10, 10, 5]} intensity={1} />
+            <Center>
+              <Suspense fallback={<CanvasLoader />}>
+                <group scale={10} position={[0, -3, 0]} rotation={[0, -0.1, 0]}>
+                  <DemoComputer texture={`${import.meta.env.BASE_URL}${currentProject.texture}`} />
+                </group>
+              </Suspense>
+            </Center>
+            <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false} />
+          </Canvas>
         </div>
       </div>
     </section>
