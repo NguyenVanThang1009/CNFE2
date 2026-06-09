@@ -10,27 +10,31 @@ import { Float, useGLTF, useTexture } from '@react-three/drei';
 const Cube = ({ ...props }) => {
   const baseUrl = import.meta.env.BASE_URL;
   const { nodes } = useGLTF(`${baseUrl}models/cube.glb`);
-
   const texture = useTexture(`${baseUrl}textures/cube.png`);
 
   const cubeRef = useRef();
   const [hovered, setHovered] = useState(false);
 
+ 
   useGSAP(() => {
-    gsap
-      .timeline({
-        repeat: -1,
-        repeatDelay: 0.5,
-      })
-      .to(cubeRef.current.rotation, {
-        y: hovered ? '+=2' : `+=${Math.PI * 2}`,
-        x: hovered ? '+=2' : `-=${Math.PI * 2}`,
-        duration: 2.5,
-        stagger: {
-          each: 0.15,
-        },
-      });
-  });
+    const timeline = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 0.5,
+    });
+
+    timeline.to(cubeRef.current.rotation, {
+      y: hovered ? '+=2' : `+=${Math.PI * 2}`,
+      x: hovered ? '+=2' : `-=${Math.PI * 2}`,
+      duration: 2.5,
+      stagger: {
+        each: 0.15,
+      },
+    });
+
+    return () => {
+      timeline.kill(); 
+    };
+  }, [hovered]);
 
   return (
     <Float floatIntensity={2}>
@@ -40,8 +44,9 @@ const Cube = ({ ...props }) => {
           castShadow
           receiveShadow
           geometry={nodes.Cube.geometry}
-          material={nodes.Cube.material}
-          onPointerEnter={() => setHovered(true)}>
+          onPointerEnter={() => setHovered(true)}
+          onPointerLeave={() => setHovered(false)} 
+        >
           <meshMatcapMaterial matcap={texture} toneMapped={false} />
         </mesh>
       </group>
@@ -51,4 +56,5 @@ const Cube = ({ ...props }) => {
 
 useGLTF.preload(`${import.meta.env.BASE_URL}models/cube.glb`);
 useTexture.preload(`${import.meta.env.BASE_URL}textures/cube.png`);
+
 export default Cube;

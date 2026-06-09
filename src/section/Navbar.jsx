@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { navLinks } from "../constants";
 
-const NavItems = () => {
+// 🟢 ĐÃ SỬA: Nhận thêm prop onClick để xử lý sự kiện đóng menu trên mobile
+const NavItems = ({ onClick }) => {
   return (
     <ul className="nav-ul">
       {navLinks.map(({ id, href, name }) => (
         <li key={id} className="nav-li">
-          <a href={href} className="nav-li_a" onClick={() => {}}>
+          <a href={href} className="nav-li_a" onClick={onClick}>
             {name}
           </a>
         </li>
@@ -16,9 +17,13 @@ const NavItems = () => {
 };
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  // 🟢 ĐÃ SỬA: Để mặc định là false để menu điện thoại đóng khi mới vào web
+  const [isOpen, setIsOpen] = useState(false); 
   const baseUrl = import.meta.env.BASE_URL;
+  
   const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const closeMenu = () => setIsOpen(false); // Hàm tự động thu menu lại
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
       <div className="max-w-7xl mx-auto">
@@ -43,6 +48,7 @@ const Navbar = () => {
           </button>
 
           <nav className="sm:flex hidden">
+            {/* Trên PC không cần truyền sự kiện đóng */}
             <NavItems />
           </nav>
 
@@ -51,7 +57,8 @@ const Navbar = () => {
 
       <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
         <nav className="p-5">
-            <NavItems/>
+            {/* 🟢 ĐÃ SỬA: Khi user click vào link, gọi hàm closeMenu để thu sidebar lại */}
+            <NavItems onClick={closeMenu} />
         </nav>
       </div>
     </header>

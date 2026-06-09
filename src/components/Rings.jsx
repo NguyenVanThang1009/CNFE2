@@ -36,12 +36,11 @@ const Rings = ({ position }) => {
         );
     },
     {
-      dependencies: position,
+      dependencies: [position],
     },
   );
 
   return (
-
     <group position={position}>
       <Center>
         <group scale={1}>
