@@ -5,12 +5,13 @@ import { useGSAP } from '@gsap/react';
 
 const DemoComputer = (props) => {
   const group = useRef();
+  const baseUrl = import.meta.env.BASE_URL;
   
   // Đã sửa đường dẫn trỏ đúng vào thư mục public/models/
-  const { nodes, materials } = useGLTF('/models/mylaptop.glb');
+  const { nodes, materials } = useGLTF(`${baseUrl}models/mylaptop.glb`);
   
   // Tải file video 1.3MB của bạn (có kèm lệnh ép tắt tiếng để trình duyệt không chặn)
-  const txt = useVideoTexture(props.texture ? props.texture : '/textures/project/jewelry-demo.mp4', {
+  const txt = useVideoTexture(props.texture ? props.texture : `${baseUrl}textures/project/jewelry-demo.mp4`, {
     crossOrigin: 'Anonymous',
     muted: true,
     loop: true,
@@ -45,6 +46,6 @@ const DemoComputer = (props) => {
   );
 };
 
-useGLTF.preload('/models/mylaptop.glb');
+useGLTF.preload(`${import.meta.env.BASE_URL}models/mylaptop.glb`);
 
 export default DemoComputer;

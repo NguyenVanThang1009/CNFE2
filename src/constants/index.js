@@ -1,3 +1,5 @@
+const baseUrl = import.meta.env.BASE_URL;
+
 export const navLinks = [
   {
     id: 1,
@@ -23,19 +25,19 @@ export const myProjects = [
     desc: 'Hệ thống quản lý cửa hàng bán trang sức trực tuyến.',
     subdesc: 'Dự án tập trung vào phân tích thiết kế hệ thống, phân rã chức năng và vẽ biểu đồ UML để xây dựng kiến trúc phần mềm chặt chẽ.',
     href: '#', 
-    texture: '/textures/project/jewelry-demo.mp4', 
-    logo: '/assets/project-logo1.png',
+    texture: `${baseUrl}textures/project/jewelry-demo.mp4`, 
+    logo: `${baseUrl}assets/project-logo1.png`,
     logoStyle: {
       backgroundColor: '#2A1816',
       border: '0.2px solid #36201D',
       boxShadow: '0px 0px 60px 0px #AA3C304D',
     },
-    spotlight: '/assets/spotlight1.png',
+    spotlight: `${baseUrl}assets/spotlight1.png`,
     tags: [
       {
         id: 1,
         name: 'React.js',
-        path: '/assets/react.svg',
+        path: `${baseUrl}assets/react.svg`,
       },
     ],
   },
@@ -48,7 +50,7 @@ export const workExperiences = [
     pos: 'Sinh viên chuyên ngành Công nghệ Thông tin',
     duration: '09/2023 - 05/2026',
     title: "Tập trung nghiên cứu và thực hành các môn học cốt lõi như Phân tích thiết kế hệ thống, Lập trình hướng đối tượng (OOP) và Quản trị Cơ sở dữ liệu.",
-    icon: '/assets/tdc-logo.jpg', 
+    icon: `${baseUrl}assets/tdc-logo.jpg`, 
     animation: 'victory',
   },
   {
@@ -57,7 +59,7 @@ export const workExperiences = [
     pos: 'Kỹ năng chuyên môn',
     duration: 'Định hướng phát triển',
     title: "Thành thạo xây dựng giao diện tương tác với HTML, CSS, Bootstrap 5. Định hướng làm chủ toàn diện các sản phẩm web.",
-    icon: '/assets/bootstrap.jpg', 
+    icon: `${baseUrl}assets/bootstrap.jpg`, 
     animation: 'clapping',
   },
   {
@@ -66,7 +68,7 @@ export const workExperiences = [
     pos: 'Kỹ năng chuyên môn',
     duration: 'Định hướng phát triển',
     title: "Vận dụng linh hoạt C#, Java, PHP cho phần xử lý logic backend và thiết kế, tối ưu hệ thống trên SQL Server.",
-    icon: '/assets/sql.jpg', 
+    icon: `${baseUrl}assets/sql.jpg`, 
     animation: 'salute',
   }
 ];
